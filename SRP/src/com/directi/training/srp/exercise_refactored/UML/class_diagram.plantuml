@@ -1,0 +1,31 @@
+@startuml Single Resposibility Principal
+
+class CarRepository {
+    - List<Car> _carsDb
+    + getCars(): List<Car>
+    + GetCarById(carId: String): Car
+}
+
+class CarMetrics {
+    + getBestCar(cars: List<Car>): Car
+}
+
+class CarFormatter {
+    + getCarsNames(cars: List<Car>): String
+}
+
+class Car {
+    - String _id
+    - String _model
+    - String _brand
+    + Car(id: String, model: String, brand: String)
+    + getId(): String
+    + getModel(): String
+    + getBrand(): String
+}
+
+CarRepository "1" -- "*" Car : contains
+CarMetrics -- Car : uses
+CarFormatter -- Car : uses
+
+@enduml
