@@ -1,0 +1,48 @@
+@startuml Dependency Inversion Principle
+
+package com.directi.training.dip.exercise_refactored {
+    interface DataReader {
+        + readData(): String
+    }
+
+    interface DataWriter {
+        + writeData(inputString: String): int
+    }
+
+    class Database {
+        - static Map<Integer, String> _data
+        - static int _count
+        + writeData(inputString: String): int
+    }
+
+    class EncodingModule {
+        - reader: DataReader
+        - writer: DataWriter
+        + EncodingModule(reader: DataReader, writer: DataWriter)
+        + encode(): void
+    }
+
+    class EncodingModuleClient {
+        + main(args: String[]): void
+    }
+
+    class File {
+        + writeData(text: String): int
+        + readData(): String
+    }
+
+    class Network {
+        + readData(): String
+    }
+
+    Database ..> DataWriter
+    EncodingModule ..> DataReader
+    EncodingModule ..> DataWriter
+    EncodingModuleClient ..> File
+    EncodingModuleClient ..> Network
+    File ..> DataWriter
+    File ..> DataReader
+    Network ..> DataReader
+}
+
+@enduml
