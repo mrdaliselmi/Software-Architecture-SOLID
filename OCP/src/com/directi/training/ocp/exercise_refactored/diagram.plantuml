@@ -1,0 +1,41 @@
+@startuml Open Closed Principal
+
+package com.directi.training.ocp.exercise_refactored {
+    abstract class Resource {
+        - final int _id
+        + Resource(int id)
+        + getId(): int
+        + abstract isFree(): boolean
+        + abstract markBusy(int resourceId): void
+        + abstract markFree(int resourceId): void
+        + abstract findFree(): int
+    }
+
+    class TimeSlot {
+        + TimeSlot(int id)
+        + isFree(): boolean
+        + markBusy(int resourceId): void
+        + markFree(int resourceId): void
+        + findFree(): int
+    }
+
+    class SpaceSlot {
+        + SpaceSlot(int id)
+        + isFree(): boolean
+        + markBusy(int resourceId): void
+        + markFree(int resourceId): void
+        + findFree(): int
+    }
+
+    class ResourceAllocator {
+        - static final int INVALID_RESOURCE_ID
+        + allocate(Resource resource): int
+        + free(Resource resource, int resourceId): void
+    }
+
+    Resource <|-- TimeSlot
+    Resource <|-- SpaceSlot
+    ResourceAllocator ..> Resource
+}
+
+@enduml
