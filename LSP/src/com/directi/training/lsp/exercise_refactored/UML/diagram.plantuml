@@ -1,0 +1,33 @@
+@startuml Liskov Substitution Principle
+
+package com.directi.training.lsp.exercise_refactored {
+    interface IDuck {
+        + swim(): void
+        + quack(): void
+    }
+
+    class RegularDuck {
+        + quack(): void
+        + swim(): void
+    }
+
+    class ElectronicDuck {
+        - boolean _on = false
+        + quack(): void
+        + swim(): void
+        + turnOn(): void
+        + turnOff(): void
+    }
+    
+    class Pool {
+        + run(): void
+        - quack(IDuck... ducks): void
+        - swim(IDuck... ducks): void
+    }
+
+    IDuck <|.. RegularDuck
+    IDuck <|.. ElectronicDuck
+    Pool --> IDuck
+}
+
+@enduml
